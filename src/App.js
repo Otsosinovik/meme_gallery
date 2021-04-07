@@ -1,40 +1,33 @@
 import './App.css';
-import Button from 'react-bootstrap/Button';
-import Navbar from 'react-bootstrap/Navbar';
-import Nav from 'react-bootstrap/Nav';
-import Form from 'react-bootstrap/Form';
-import FormControl from 'react-bootstrap/FormControl';
-import NavDropdown from 'react-bootstrap/NavDropdown';
-import NavbarBrand from './header/NavbarBrand'
+import Header from './header/Header';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect
+} from 'react-router-dom';
+import Category from './category/Category';
+import Dashboard from './dashboard/Dashboard';
 
 const App = () => {
   return (
     <div className="App">
-      <Navbar bg="dark" variant="dark">
+      <Header/>
+      <Router>
+        <Switch>
+          <Route path='/dashboard'>
+            <Dashboard/>
+          </Route>
 
-        <NavbarBrand/>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Route path='/category'>
+            <Category/>
+          </Route>
 
-        <Navbar.Collapse id="basic-navbar-nav"></Navbar.Collapse>
-
-        <Nav className="mr-auto">
-          <Nav.Link href="#home">Работники</Nav.Link>
-          <Nav.Link href="#pricing">Заработная плата</Nav.Link>
-          <NavDropdown title="Табельный учет" id="basic-nav-dropdown">
-            <NavDropdown.Item href="#action/3.1">Отпускные</NavDropdown.Item>
-            <NavDropdown.Item href="#action/3.2">Переработки</NavDropdown.Item>
-            <NavDropdown.Item href="#action/3.3">Что нибудь</NavDropdown.Item>
-            <NavDropdown.Divider />
-            <NavDropdown.Item href="#action/3.4">Итоги месяца</NavDropdown.Item>
-          </NavDropdown>
-        </Nav>
-
-        <Form inline>
-          <FormControl size="sm" type="text" placeholder="Введите..." className="mr-sm-2" />
-          <Button size="sm" variant="outline-light">Поиск</Button>
-        </Form>
-
-      </Navbar>
+          <Route path='*'>
+            <Redirect to='/dashboard' push={true}/>
+          </Route>
+        </Switch>
+      </Router>
     </div>
   );
 }
